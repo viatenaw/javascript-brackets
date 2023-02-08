@@ -1,0 +1,1 @@
+export const SCORE_DONE = 'SCORE_DONE'
