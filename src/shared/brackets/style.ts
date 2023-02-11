@@ -6,6 +6,7 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 36px;
     padding-bottom: 100px;
+    padding-right: 100px;
 `
 export const Row = styled.div`
     display: flex;
@@ -92,26 +93,25 @@ export const SmallTile = styled.div<I_SmallTileProps>`
 
 interface I_BorderBoxProps {
     isActive?: boolean
+    isCol2?: boolean
+
 }
 export const BorderBoxTop = styled.div<I_BorderBoxProps>`
     height: 50%;
     border: ${props => props.isActive ? '2px solid #fff' : '1px solid rgba(255, 255, 255, 0.2)'};
-    border-left: none;
-    border-bottom: none;
 `
 export const BorderBox = styled.div<I_BorderBoxProps>`
     height: 50%;
     border: ${props => props.isActive ? '2px solid #fff' : '1px solid rgba(255, 255, 255, 0.2)'};
-    border-left: none;
-    border-top: none;
 `
+
 export const BorderBoxWrapper = styled.div`
     position: absolute;
     transform: translateY(-50%);
     height: calc(100% - 115px);
     width: 28%;
     top: 50%;
-    left: 100%;
+    left:  100%;
     z-index: -1;
     .hover {
         // border: 8px solid;
@@ -134,14 +134,65 @@ export const BorderBoxWrapper = styled.div`
       }
       .bottom {
         border-top: none;
+      }
+    }
+    .topRight{
+        border-left: none;
+        border-bottom: none;
+    }
+    .bottomRight{
+        border-left: none;
+        border-top: none;
     }
 `
-
+export const BorderBoxWrapperLeft = styled(BorderBoxWrapper)`
+    left: -30%;
+    .hover {
+        // border: 8px solid;
+        border: 2px solid #fff;
+        // border-image: repeating-linear-gradient(135deg,#F8CA00 0 10px,#E97F02 0 20px,#BD1550 0 30px) 8;
+        -webkit-mask: 
+          conic-gradient(from 180deg at top 8px right 8px, #0000 90deg,#000 0)
+           var(--_i,200%) 0  /200% var(--_i,8px) border-box no-repeat,
+          conic-gradient(at bottom 8px left  8px,  #0000 90deg,#000 0)
+           0   var(--_i,200%)/var(--_i,8px) 200% border-box no-repeat,
+          linear-gradient(#000 0 0) padding-box no-repeat;
+        transition: .5s, -webkit-mask-position 1s 1s;
+        --_i: 100%;
+        color: #CC333F;
+        transition: .5s, -webkit-mask-size 2s 2s;
+        border-right: none;
+      }
+      .top {
+        border-bottom: none;
+      }
+      .bottom {
+        border-top: none;
+      }
+    }
+    .topLeft{
+        border-right: none;
+        border-bottom: none;
+    }
+    .bottomLeft{
+        border-right: none;
+        border-top: none;
+    }
+`
 export const Line = styled.div<I_BorderBoxProps>`
     position: absolute;
     width: 30%;
     top: 50%;
-    left: -30%;
+    left: ${props => props.isCol2 ? '100%' : '-30%'};
+    transform: translateY(-50%);
+    background: ${props => props.isActive ? '#fff' : 'rgba(255, 255, 255, 0.2)'};
+    height: ${props => props.isActive ? '2px' : '1px'}
+`
+export const Line2 = styled.div<I_BorderBoxProps>`
+    position: absolute;
+    width: 30%;
+    top: 50%;
+    left: 100%;
     transform: translateY(-50%);
     background: ${props => props.isActive ? '#fff' : 'rgba(255, 255, 255, 0.2)'};
     height: ${props => props.isActive ? '2px' : '1px'}

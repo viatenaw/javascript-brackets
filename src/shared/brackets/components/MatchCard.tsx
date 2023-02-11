@@ -1,7 +1,8 @@
-import { ResultsTile, Tile } from "../style"
-import { SCORE_DONE } from "../../text";
+import { Line2, ResultsTile, Tile } from "../style"
+import { FINAL, SCORE_DONE, SEMI_FINAL_1, SEMI_FINAL_2 } from "../../text";
 import { Line, MatchCardWrapper, RoundNameWrapper, StartTimeWrapper, SmallTile } from "../style"
 import { limitStringLength } from "../../utils";
+import { useState } from 'react';
 
 interface I_MatchCardProps {
     match?: any
@@ -12,21 +13,40 @@ interface I_MatchCardProps {
     highlightedRoundNum: any
     highlightedUserId: string
     isLineActive: boolean
+    isCol2?: boolean
+    pairId: string
+    isPartioned?: boolean
 }
 
+const playoffs = [SEMI_FINAL_1, SEMI_FINAL_2, FINAL]
 export const MatchCard = (props: I_MatchCardProps) => {
-    const { match, roundIndex = 0, setHighlightedUserId, setHighlightedRoundNum, highlightedUserId, isLineActive } = props
-    const { participants = [], startTime = 'TBD', name, state } = match
-   
+    const { isCol2 = false, isPartioned = false, match, pairId, roundIndex = 0, setHighlightedUserId, setHighlightedRoundNum, highlightedUserId, isLineActive } = props
+    const { participants = [], startTime = 'TBD', name, state, tournamentRoundText } = match
+
+    const [isHighlightedWinner, setIsHighlightedWinner] = useState(false)
+
     const handleFocus = (user: any) => {
-        setHighlightedUserId(user.id)
+        setHighlightedUserId(user?.id)
+        setIsHighlightedWinner(user?.isWinner)
         setHighlightedRoundNum(roundIndex)
     }
     const reset = () => {
         setHighlightedUserId('')
         setHighlightedRoundNum(0)
+        setIsHighlightedWinner(false)
     }
-   
+    const getClassName = () => {
+        if (!isLineActive) return false
+
+        return (
+            ((participants[0]?.isWinner && participants[0]?.id === highlightedUserId)) ||
+            ((participants[1]?.isWinner && participants[1]?.id === highlightedUserId)) ||
+            (isCol2 && pairId !== SEMI_FINAL_2) ||
+            (!isCol2 && pairId !== FINAL) ||
+            (!isPartioned && isLineActive) ||
+            isHighlightedWinner
+        )
+    }
     return (
         <MatchCardWrapper>
             <StartTimeWrapper>
@@ -77,7 +97,7 @@ export const MatchCard = (props: I_MatchCardProps) => {
                                         isWinner={participants[1].isWinner}
                                         className={participants[1].id === highlightedUserId ? 'highlighted tile' : 'tile'}
                                     >
-                                       {participants[1].name}
+                                        {participants[1].name}
                                     </Tile>
                                 </>
                         }
@@ -107,7 +127,19 @@ export const MatchCard = (props: I_MatchCardProps) => {
                 {name || 'Round'}
             </RoundNameWrapper>
             {
-                roundIndex > 0 && <Line className={isLineActive ? 'hover' : ''} isActive={isLineActive} />
+                ((!isCol2 && roundIndex > 0) || (isCol2 && (tournamentRoundText !== '1'))) &&
+                <Line
+                    isCol2={isCol2 && pairId !== SEMI_FINAL_2}
+                    className={getClassName() ? 'hover' : ''}
+                    isActive={getClassName()}
+                />
+            }
+            {
+                (playoffs.includes(pairId) && isPartioned) &&
+                <Line2
+                    className={(pairId !== SEMI_FINAL_1 || isHighlightedWinner) && isLineActive ? 'hover' : ''}
+                    isActive={(pairId !== SEMI_FINAL_1 || isHighlightedWinner) && isLineActive}
+                />
             }
 
         </MatchCardWrapper>
