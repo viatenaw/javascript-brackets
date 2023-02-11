@@ -68,7 +68,7 @@ export const Brackets = () => {
             bodyArray.forEach((round: any, idx: number) => {
                 const roundLen = Object.keys(round).length
 
-                Object.entries(round).map(([k, v], rIdx) => {
+                Object.entries(round).forEach(([k, v], rIdx) => {
                     if (rIdx < roundLen / 2) {
                         if (!data1?.[idx]) data1[idx] = {}
                         data1[idx][k] = v
