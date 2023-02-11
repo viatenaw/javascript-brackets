@@ -15,12 +15,12 @@ interface I_MatchCardProps {
     isLineActive: boolean
     isCol2?: boolean
     pairId: string
-    isPartioned?: boolean
+    isPartitioned?: boolean
 }
 
 const playoffs = [SEMI_FINAL_1, SEMI_FINAL_2, FINAL]
 export const MatchCard = (props: I_MatchCardProps) => {
-    const { isCol2 = false, isPartioned = false, match, pairId, roundIndex = 0, setHighlightedUserId, setHighlightedRoundNum, highlightedUserId, isLineActive } = props
+    const { isCol2 = false, isPartitioned = false, match, pairId, roundIndex = 0, setHighlightedUserId, setHighlightedRoundNum, highlightedUserId, isLineActive } = props
     const { participants = [], startTime = 'TBD', name, state, tournamentRoundText } = match
 
     const [isHighlightedWinner, setIsHighlightedWinner] = useState(false)
@@ -43,7 +43,7 @@ export const MatchCard = (props: I_MatchCardProps) => {
             ((participants[1]?.isWinner && participants[1]?.id === highlightedUserId)) ||
             (isCol2 && pairId !== SEMI_FINAL_2) ||
             (!isCol2 && pairId !== FINAL) ||
-            (!isPartioned && isLineActive) ||
+            (!isPartitioned && isLineActive) ||
             isHighlightedWinner
         )
     }
@@ -135,7 +135,7 @@ export const MatchCard = (props: I_MatchCardProps) => {
                 />
             }
             {
-                (playoffs.includes(pairId) && isPartioned) &&
+                (playoffs.includes(pairId) && isPartitioned) &&
                 <Line2
                     className={(pairId !== SEMI_FINAL_1 || isHighlightedWinner) && isLineActive ? 'hover' : ''}
                     isActive={(pairId !== SEMI_FINAL_1 || isHighlightedWinner) && isLineActive}

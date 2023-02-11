@@ -11,11 +11,11 @@ interface I_RoundColumnProps {
     highlightedRoundNum: any
     setHighlightedRoundNum: any
     isCol2?: boolean
-    isPartioned?: boolean
+    isPartitioned?: boolean
 
 }
 export const RoundColumn = (props: I_RoundColumnProps) => {
-    const { isCol2, isPartioned, round, roundIndex, lastRoundNum, setHighlightedUserId, highlightedUserId, setHighlightedRoundNum, highlightedRoundNum } = props
+    const { isCol2, isPartitioned, round, roundIndex, lastRoundNum, setHighlightedUserId, highlightedUserId, setHighlightedRoundNum, highlightedRoundNum } = props
 
     const highlightBox = (matches: any, isbox: boolean = false) => {
         if (!matches?.participants || !highlightedUserId) return false
@@ -45,7 +45,7 @@ export const RoundColumn = (props: I_RoundColumnProps) => {
                                             highlightedUserId={highlightedUserId}
                                             isLineActive={highlightBox(matches[matchIdx])}
                                             isCol2={isCol2}
-                                            isPartioned={isPartioned}
+                                            isPartitioned={isPartitioned}
                                         />
                                     })
                                 }
@@ -54,7 +54,7 @@ export const RoundColumn = (props: I_RoundColumnProps) => {
                                         <BorderBoxTop className={highlightBox(matches[0], true) ? 'hover top topLeft' : 'topLeft'} isActive={highlightBox(matches[0], true)} />
                                         <BorderBox className={highlightBox(matches[1], true) ? 'hover bottom bottomLeft' : 'bottomLeft'} isActive={highlightBox(matches[1] || {}, true)} />
                                     </BorderBoxWrapperLeft>
-                                    : roundIndex + (isPartioned ? 2 : 1) < lastRoundNum && <BorderBoxWrapper>
+                                    : roundIndex + (isPartitioned ? 2 : 1) < lastRoundNum && <BorderBoxWrapper>
                                         <BorderBoxTop className={highlightBox(matches[0], true) ? 'hover top topRight' : 'topRight'} isActive={highlightBox(matches[0], true)} />
                                         <BorderBox className={highlightBox(matches[1], true) ? 'hover bottom bottomRight' : 'bottomRight'} isActive={highlightBox(matches[1] || {}, true)} />
                                     </BorderBoxWrapper>

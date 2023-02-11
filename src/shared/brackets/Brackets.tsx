@@ -114,7 +114,7 @@ export const Brackets = () => {
                             roundIndex={roundIndex}
                             key={roundIndex}
                             lastRoundNum={lastRoundNum}
-                            isPartioned={data.length >= PARTION_LIMIT}
+                            isPartitioned={data.length >= PARTION_LIMIT}
                         />
                     )
                 })
@@ -130,7 +130,7 @@ export const Brackets = () => {
                             roundIndex={roundIndex}
                             key={roundIndex}
                             lastRoundNum={lastRoundNum}
-                            isPartioned={data.length >= PARTION_LIMIT}
+                            isPartitioned={data.length >= PARTION_LIMIT}
                             isCol2
                         />
                     )
