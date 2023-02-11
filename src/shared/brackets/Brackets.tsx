@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { StageTile } from "../../modules/home/style"
+import { StageTile } from "./style"
 import { MatchCard } from "./components/MatchCard"
 import { Container, Row, MatchPairCard, BorderBoxWrapper, Column, BorderBox, BorderBoxTop, BorderBoxWrapperLeft } from "./style"
 import { gapMapping, sortArrayOfObjects } from '../utils';
@@ -54,6 +54,7 @@ export const Brackets = () => {
                 } else {
                     bodyArray[roundNum - 1][SEMI_FINAL_1] = [el]
                 }
+                roundName = 'Semi Final - 1'
             } else if (nextMatchId) {
                 const pairData: any = bodyArray?.[roundNum - 1]?.[nextMatchId] || []
                 bodyArray[roundNum - 1][nextMatchId] = [...pairData, el]
@@ -79,7 +80,7 @@ export const Brackets = () => {
             })
             const limit = numOfRounds - 1
             let headCol: string[] = Array.from({ length: limit }, (_, index) => limit - index).map(el => `Round ${el}`)
-            headCol[0] = 'Semi final'
+            headCol[0] = 'Semi Final - 2'
             setHeadCol2(headCol)
         } else {
             data1 = bodyArray

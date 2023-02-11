@@ -235,3 +235,19 @@ export const ResultsTile = styled(Tile) <I_TileProps>`
     justify-content: space-between;
     padding: 8px;
 `
+
+export const StageTile = styled.div`
+    width: 170px;
+    height: 40px;
+    border-radius: 6px;
+    background: rgba(154, 106, 254, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    font-family: 'GraphikRegular';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 15px;
+`
