@@ -7,7 +7,7 @@ import { data } from './data';
 import { SEMI_FINAL_1, SEMI_FINAL_2 } from '../text';
 import { RoundColumn } from './components/RoundColumn';
 
-const PARTION_LIMIT = 8
+const PARTITION_LIMIT = 8
 export const Brackets = () => {
     const [headCol1, setHeadCol1] = useState([])
     const [headCol2, setHeadCol2] = useState<string[]>([])
@@ -48,7 +48,7 @@ export const Brackets = () => {
             if (isFinal) {
                 bodyArray[roundNum - 1].final = [el]
                 roundName = roundName.split(" - ")[0].trim() || 'Final'
-            } else if (isSemiFinal && sortedData.length >= PARTION_LIMIT) {
+            } else if (isSemiFinal && sortedData.length >= PARTITION_LIMIT) {
                 if (bodyArray[roundNum - 1].hasOwnProperty(SEMI_FINAL_1)) {
                     bodyArray[roundNum - 1][SEMI_FINAL_2] = [el]
                 } else {
@@ -64,7 +64,7 @@ export const Brackets = () => {
         })
         let data1: any = [], data2: any = [];
 
-        if (sortedData.length > PARTION_LIMIT) {
+        if (sortedData.length > PARTITION_LIMIT) {
             bodyArray.forEach((round: any, idx: number) => {
                 const roundLen = Object.keys(round).length
 
@@ -114,7 +114,7 @@ export const Brackets = () => {
                             roundIndex={roundIndex}
                             key={roundIndex}
                             lastRoundNum={lastRoundNum}
-                            isPartitioned={data.length >= PARTION_LIMIT}
+                            isPartitioned={data.length >= PARTITION_LIMIT}
                         />
                     )
                 })
@@ -130,7 +130,7 @@ export const Brackets = () => {
                             roundIndex={roundIndex}
                             key={roundIndex}
                             lastRoundNum={lastRoundNum}
-                            isPartitioned={data.length >= PARTION_LIMIT}
+                            isPartitioned={data.length >= PARTITION_LIMIT}
                             isCol2
                         />
                     )
