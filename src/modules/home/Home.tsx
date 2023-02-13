@@ -6,7 +6,7 @@ import { Brackets } from "../../shared/brackets"
 export const Home = () => {
     return <Container>
         <Wrapper>
-            <TransformWrapper initialScale={1} minScale={.2} maxScale={1.1} disablePadding centerZoomedOut>
+            <TransformWrapper initialScale={1} minScale={.2} maxScale={1.1} disablePadding centerZoomedOut centerOnInit>
                 <TransformComponent>
                     <Brackets />
                 </TransformComponent>
