@@ -16,6 +16,7 @@ export const Brackets = () => {
     const [lastRoundNum, setLastRoundNum] = useState(1)
     const [highlightedUserId, setHighlightedUserId] = useState('')
     const [highlightedRoundNum, setHighlightedRoundNum] = useState<number>()
+    const [isPartitioned, setIsPartitioned] = useState(false)
 
     useEffect(() => {
         init()
@@ -26,14 +27,14 @@ export const Brackets = () => {
         const bodyArray: any = []
         let modifiedData: any = []
         let numOfRounds = 1
-        data.forEach((el: any, index) => {
+        const bracketData = data
+        bracketData.forEach((el: any, index) => {
             const matchNum = el?.name?.split(" - ")?.[1]?.split(" ")?.[1]
             modifiedData.push({ ...el, matchText: matchNum })
             let roundNum = Number(el.tournamentRoundText)
             if (roundNum > numOfRounds) numOfRounds = roundNum
         })
         const sortedData: any = sortArrayOfObjects(modifiedData, 'matchText')
-
 
         sortedData.forEach((el: any, index: number) => {
             let roundName = el?.name || ''
@@ -65,6 +66,7 @@ export const Brackets = () => {
         let data1: any = [], data2: any = [];
 
         if (sortedData.length > PARTITION_LIMIT) {
+            setIsPartitioned(true)
             bodyArray.forEach((round: any, idx: number) => {
                 const roundLen = Object.keys(round).length
 
@@ -83,6 +85,7 @@ export const Brackets = () => {
             headCol[0] = 'Semi Final - 2'
             setHeadCol2(headCol)
         } else {
+            setIsPartitioned(false)
             data1 = bodyArray
         }
 
@@ -114,7 +117,7 @@ export const Brackets = () => {
                             roundIndex={roundIndex}
                             key={roundIndex}
                             lastRoundNum={lastRoundNum}
-                            isPartitioned={data.length >= PARTITION_LIMIT}
+                            isPartitioned={isPartitioned}
                         />
                     )
                 })
@@ -130,7 +133,7 @@ export const Brackets = () => {
                             roundIndex={roundIndex}
                             key={roundIndex}
                             lastRoundNum={lastRoundNum}
-                            isPartitioned={data.length >= PARTITION_LIMIT}
+                            isPartitioned={isPartitioned}
                             isCol2
                         />
                     )
